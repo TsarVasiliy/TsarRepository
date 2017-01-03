@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +17,9 @@ namespace automatic_tests.Pages
         [FindsBy(How = How.ClassName, Using = "favorfull_plus")]
         private IWebElement buttonAddToFavorite;
 
+        [FindsBy(How = How.ClassName, Using = "favorfull_min")]
+        private IWebElement buttonDeleteFromFavorite;
+
         [FindsBy(How = How.Id, Using = "comments")]
         private IWebElement inputComment;
 
@@ -25,8 +28,11 @@ namespace automatic_tests.Pages
 
         [FindsBy(How = How.ClassName, Using = "r10-unit")]
         private IWebElement button10Mark;
-        
 
+        [FindsBy(How = How.ClassName, Using = "favorfull_plus1")]
+        private IWebElement buttonAddToFavoriteWithoutAuthorization;
+
+        
         public FilmPage(IWebDriver driver)
             : base(driver)
         {
@@ -91,9 +97,17 @@ namespace automatic_tests.Pages
             buttonAddToFavorite.Click();
         }
 
+        public void DeleteFavouriteClick()
+        {
+            //   System.Threading.Thread.Sleep(1000);
+            buttonDeleteFromFavorite.Click();
+        }
+
+
+        
         public void AddFavouriteWithoutAuthorizationClick()
         {
-            buttonAddToFavorite.Click();
+            buttonAddToFavoriteWithoutAuthorization.Click();
         }
     }
 }
