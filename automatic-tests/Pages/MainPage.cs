@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -69,7 +69,6 @@ namespace automatic_tests.Pages
         }
         public void LogOff()
         {
-          
             buttonExit.Click();
 
         }
@@ -87,13 +86,16 @@ namespace automatic_tests.Pages
             return enter_main.Text.Equals("Вход");
         }
 
-        public string GoThroughPanel(string filmType)
+        public void GoThroughPanel(string filmType)
         {
             IWebElement linkPanel = driver.FindElement(By.LinkText(filmType));
-            Console.WriteLine(linkPanel.Text);
+            //Console.WriteLine(linkPanel.Text);
             linkPanel.Click();
-            IWebElement pageHeader = driver.FindElement(By.ClassName("contenth1"));
-            return pageHeader.Text;
+
+            System.Threading.Thread.Sleep(1000);
+            IWebElement pageHeader = driver.FindElement(By.XPath("/html/body/div/div/div/div/div/div/div/h1"));
+            Console.WriteLine(pageHeader.Text);
+
         }
 
         public void Search(string text)                 //поиск фильма
