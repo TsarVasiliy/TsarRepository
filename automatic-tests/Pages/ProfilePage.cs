@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +17,10 @@ namespace automatic_tests.Pages
         [FindsBy(How = How.Name, Using = "fullname")]
         private IWebElement NameBox;
 
-        [FindsBy(How = How.XPath, Using = "//*[@id='userinfo']/div/img")]
+        [FindsBy(How = How.Name, Using = "password2")]
+        private IWebElement RepeateBox;
+        
+                [FindsBy(How = How.XPath, Using = "//*[@id='userinfo']/div/img")]
         private IWebElement imgProfile;
 
         [FindsBy(How = How.Id, Using = "del_foto")]
@@ -35,6 +38,13 @@ namespace automatic_tests.Pages
         [FindsBy(How = How.LinkText, Using = "Отправить")]
         private IWebElement buttonSaveChange;
 
+        [FindsBy(How = How.LinkText, Using = "Выход")]
+        private IWebElement buttonExitAccount;
+
+        [FindsBy(How = How.ClassName, Using = "ui-icon ui-icon-closethick")]
+        private IWebElement buttonCloseCabinete;
+
+        
         public ProfilePage(IWebDriver driver) : base(driver)
         {
             PageFactory.InitElements(this.driver, this);
@@ -68,10 +78,15 @@ namespace automatic_tests.Pages
         public void EditProfileClick(string oldPass, string newPass)
         {
             buttonEditProfile.Click();
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(2000);
             oldPassword.SendKeys(oldPass);
             newPassword.SendKeys(newPass);
+            RepeateBox.SendKeys(newPass);
             newPassword.SendKeys(Keys.Enter);
+            System.Threading.Thread.Sleep(5000);
+            buttonExitAccount.Click();
+
+
         }
 
 
@@ -104,14 +119,6 @@ namespace automatic_tests.Pages
         {
             checkboxDeletePhoto.Click();
         }
-        public void EnterNewPasswordInfo(string oldPassword,string newPassword)
-        {
-            IWebElement inputOldPassword = driver.FindElement(By.Name("altpass"));
-            inputOldPassword.SendKeys(oldPassword);
-            IWebElement inputNewPassword = driver.FindElement(By.Name("password1"));
-            inputNewPassword.SendKeys(newPassword);
-            IWebElement inputRepeat = driver.FindElement(By.Name("password2"));
-            inputRepeat.SendKeys(newPassword);
-        }
+
     }
 }
