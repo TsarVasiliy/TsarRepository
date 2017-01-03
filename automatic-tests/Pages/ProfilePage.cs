@@ -20,10 +20,10 @@ namespace automatic_tests.Pages
         [FindsBy(How = How.Name, Using = "password2")]
         private IWebElement RepeateBox;
         
-                [FindsBy(How = How.XPath, Using = "//*[@id='userinfo']/div/img")]
+        [FindsBy(How = How.XPath, Using = "//*[@id='userinfo']/div/div/div/div/img")]
         private IWebElement imgProfile;
 
-        [FindsBy(How = How.Id, Using = "del_foto")]
+        [FindsBy(How = How.Name, Using = "del_foto")]
         private IWebElement checkboxDeletePhoto;
 
         [FindsBy(How = How.LinkText, Using = "редактировать профиль")]
@@ -93,31 +93,32 @@ namespace automatic_tests.Pages
         public void EditProfileClick()
         {
             buttonEditProfile.Click();
-
+            System.Threading.Thread.Sleep(2000);
         }
 
         public void LoadPicture()
         {
             IWebElement inputChooseFile = driver.FindElement(By.Name("image"));
-            inputChooseFile.SendKeys(System.IO.Path.GetFullPath(@"automatic-tests/img/images.jpg"));
+            inputChooseFile.SendKeys(System.IO.Path.GetFullPath(@"img/images.jpg"));
             System.Threading.Thread.Sleep(2000);
+            NameBox.SendKeys(Keys.Enter);
             
-
         }
         public void SubmitClick()
         {
-            IWebElement buttonSubmit = driver.FindElement(By.Name("submit"));
-            buttonSubmit.Click();
-            System.Threading.Thread.Sleep(2000);
+            NameBox.SendKeys(Keys.Enter);
         }
         public bool isDefaultImg()
         {
             Console.WriteLine(imgProfile.GetAttribute("Src"));
-            return imgProfile.GetAttribute("src").Equals("http://kinogo.club/templates/kinogo/dleimages/noavatar.png");
+            return imgProfile.GetAttribute("src").Equals("http://kinokrad.co/templates/kinok/dleimages/noavatar.png");
         }
         public void SetCheckboxDeletePhoto()
         {
+            System.Threading.Thread.Sleep(2000);
             checkboxDeletePhoto.Click();
+            NameBox.SendKeys(Keys.Enter);
+            System.Threading.Thread.Sleep(2000);
         }
 
     }
