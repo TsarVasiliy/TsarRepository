@@ -201,6 +201,7 @@ namespace automatic_tests.Steps
         }
         public bool IsDefaultAvatar()
         {
+            System.Threading.Thread.Sleep(2000);
             Pages.ProfilePage profilePage = new Pages.ProfilePage(driver);
             return profilePage.isDefaultImg();
         }
@@ -211,7 +212,7 @@ namespace automatic_tests.Steps
             profilePage.OpenPage();
             profilePage.EditProfileClick();
             profilePage.SetCheckboxDeletePhoto();
-            profilePage.SubmitClick();
+
         }
 
 
