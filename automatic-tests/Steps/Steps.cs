@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using OpenQA.Selenium;
 
 namespace automatic_tests.Steps
@@ -113,13 +113,25 @@ namespace automatic_tests.Steps
         }
 
 
-        public string GoThroughPanel(string filmType)
+        public void GoThroughPanel(string filmType)
         {
             Pages.MainPage mainPage = new Pages.MainPage(driver);
             mainPage.OpenPage();
-            string type = mainPage.GoThroughPanel(filmType);
-            return type;
+            //IWebElement linkPanel = driver.FindElement(By.LinkText(filmType));
+           
+            //linkPanel.Click();
+            //System.Threading.Thread.Sleep(10000);
+            mainPage.GoThroughPanel(filmType);
+
         }
+
+        public bool IsHistoryPage(string filmType)
+        {
+            IWebElement pageHeader = driver.FindElement(By.XPath("/html/body/div/div/div/div/div/div/div/h1"));
+            //Console.WriteLine(pageHeader.Text);
+            return pageHeader.Text.Equals("Раздел с фильмами " + '\u0022' + filmType + '\u0022');
+        }
+
 
 
         public void AddFavourite()
@@ -134,7 +146,7 @@ namespace automatic_tests.Steps
         {
             Pages.FilmPage filmPage = new Pages.FilmPage(driver);
             filmPage.OpenPage();
-            filmPage.AddFavouriteClick(); ;
+            filmPage.DeleteFavouriteClick(); ;
         }
 
         public void AddFavouriteWithoutAuthorization()
@@ -143,6 +155,7 @@ namespace automatic_tests.Steps
             filmPage.OpenPage();
             filmPage.AddFavouriteWithoutAuthorizationClick();
             System.Threading.Thread.Sleep(1000);
+            System.Console.WriteLine(driver.Title);
 
         }
 
@@ -167,7 +180,7 @@ namespace automatic_tests.Steps
         {
             Pages.MainPage mainPage = new Pages.MainPage(driver);
             Console.WriteLine(mainPage.GetAuthorizationError());
-            return (mainPage.GetAuthorizationError().Equals("Ошибка авторизации"));
+            return (mainPage.GetAuthorizationError().Contains("Ошибка авторизации"));
         }
 
 
@@ -204,7 +217,9 @@ namespace automatic_tests.Steps
 
         public bool IsRegistryPage()
         {
-            return driver.Title.Equals("Регистрация посетителя");
+           
+           // System.Console.WriteLine(driver.Title);
+            return driver.Title.Contains("Регистрация посетителя");
         }
 
 
